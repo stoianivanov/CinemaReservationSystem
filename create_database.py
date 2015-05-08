@@ -7,14 +7,14 @@ cursor = db.cursor()
 # Create tables
 create_movies_table = """
 CREATE TABLE IF NOT EXISTS
-Movies(id INTEGER PRIMARY KEY, name TEXT, rating INTEGER)
+Movies(id INTEGER PRIMARY KEY, movie_name TEXT, movie_rating FLOAT)
 """
 cursor.execute(create_movies_table)
 
 create_projections_table = """
 CREATE TABLE IF NOT EXISTS
-Projections(id INTEGER PRIMARY KEY, movie_id INTEGER, type TEXT,
-p_date TEXT, time TEXT,
+Projections(id INTEGER PRIMARY KEY, movie_id INTEGER, projection_type TEXT,
+projection_date TEXT, projection_time TEXT,
 FOREIGN KEY (movie_id) REFERENCES Movies(id))
 """
 cursor.execute(create_projections_table)
@@ -36,7 +36,7 @@ movies = [
         ]
 
 cursor.executemany(""" INSERT INTO Movies(
-name, rating) VALUES(?,?)
+movie_name, movie_rating) VALUES(?,?)
 """, movies)
 db.commit()
 
@@ -50,7 +50,7 @@ projections = [
             (2, "2D", "2014-04-02", "19:30")
             ]
 cursor.executemany(""" INSERT INTO Projections(
-movie_id, type, p_date, time) VALUES(?,?,?,?)
+movie_id, projection_type, projection_date, projection_time) VALUES(?,?,?,?)
 """, projections)
 db.commit()
 
